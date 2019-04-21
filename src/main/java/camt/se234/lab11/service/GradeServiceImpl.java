@@ -20,8 +20,4 @@ public class GradeServiceImpl implements GradeService {
 
     }
 
-    @Override
-    public String getGrade(double midtermScore, double finalScore) {
-        return null;
-    }
 }
