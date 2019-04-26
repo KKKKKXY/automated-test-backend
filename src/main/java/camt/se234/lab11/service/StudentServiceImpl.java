@@ -21,7 +21,7 @@ public class StudentServiceImpl implements StudentService {
                 return student;
             }
         }
-        return null;
+        throw new NoDataException();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
                 output.add(student);
             }
         }
-        return output;
+        throw new OutputException();
     }
 
     
@@ -47,4 +47,26 @@ public class StudentServiceImpl implements StudentService {
         }
         return total/this.studentDao.findAll().size();
     }
+
+    @Override
+    public double getAverageGpaNew() {
+        double total = 0;
+        for (Student student: this.studentDao.findAllNewList()
+        ) {
+            total += student.getGpa();
+
+        }
+        return total/this.studentDao.findAllNewList().size();
+    }
+
+    public class NoDataException extends RuntimeException {
+
+    }
+    public class OutputException extends RuntimeException {
+
+    }
+    public class ArithmeticException extends RuntimeException {
+
+    }
+
 }

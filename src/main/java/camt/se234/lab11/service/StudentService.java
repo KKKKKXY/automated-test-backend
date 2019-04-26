@@ -8,4 +8,6 @@ public interface StudentService {
     Student findStudentById(String id);
     List<Student> findStudentByPartOfId(String id);
     double getAverageGpa();
+    double getAverageGpaNew();
+
 }
