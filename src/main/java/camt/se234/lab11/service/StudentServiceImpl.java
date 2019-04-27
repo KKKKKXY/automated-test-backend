@@ -33,7 +33,12 @@ public class StudentServiceImpl implements StudentService {
                 output.add(student);
             }
         }
-        throw new OutputException();
+        if(output.size()==0){
+            throw new OutputException();
+        } else {
+            return  output;
+        }
+
     }
 
     
@@ -45,7 +50,15 @@ public class StudentServiceImpl implements StudentService {
             total += student.getGpa();
 
         }
-        return total/this.studentDao.findAll().size();
+        if (this.studentDao.findAll().size()==0){
+            throw new ArithmeticException();
+        }else{
+            return total/this.studentDao.findAll().size();
+        }
+
+        //throw new ArithmeticException;
+
+
     }
 
     @Override
@@ -56,17 +69,12 @@ public class StudentServiceImpl implements StudentService {
             total += student.getGpa();
 
         }
+
         return total/this.studentDao.findAllNewList().size();
     }
 
-    public class NoDataException extends RuntimeException {
 
-    }
-    public class OutputException extends RuntimeException {
 
-    }
-    public class ArithmeticException extends RuntimeException {
 
-    }
 
 }

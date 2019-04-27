@@ -1,11 +1,11 @@
 version: '3.3'
 services:
   backend:
-    image: dto80/se234-lab11-backend:latest
+    image: dto80/se234-lab11:latest
     ports:
       - "8082:8080"
   frontend:
-    image: dto80/se234-lab11-client:latest
+    image: xingyuankang/se234-lab11-client:latest
     ports:
       - "8081:80"
 

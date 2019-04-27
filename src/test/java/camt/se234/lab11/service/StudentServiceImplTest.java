@@ -84,7 +84,7 @@ public class StudentServiceImplTest {
         assertThat(studentService.findStudentById("01"),is(new Student("01","F","q",1.2)));
     }
 
-    //@Test(expected = StudentServiceImpl.ArithmeticException.class)
+    @Test
     public void getAverageGpaMock(){
         //StudentDao studentDao = mock(StudentDao.class);
         List<Student> mockStudents = new ArrayList<>();
@@ -97,7 +97,7 @@ public class StudentServiceImplTest {
         assertThat(studentService.getAverageGpa(),is(2.33));
     }
 
-    @Test(expected = StudentServiceImpl.OutputException.class)
+    @Test
     public void testFindByPartOfId(){
         //StudentDao studentDao = mock(StudentDao.class);
         List<Student> mockStudents = new ArrayList<>();
@@ -113,7 +113,7 @@ public class StudentServiceImplTest {
 
     }
 
-    @Test(expected = StudentServiceImpl.OutputException.class)
+    @Test
     public void testFindByPartOfIdOwn(){
         //StudentDao studentDao = mock(StudentDao.class);
         List<Student> mockStudents = new ArrayList<>();
@@ -124,17 +124,31 @@ public class StudentServiceImplTest {
         mockStudents.add(new Student("112","F","w",0.8));
         when(studentDao.findAll()).thenReturn(mockStudents);
         assertThat(studentService.findStudentByPartOfId("12"),hasItem(new Student("123","A","temp",2.33)));
-        assertThat(studentService.findStudentByPartOfId("12"),hasItems(new Student("123","A","temp",2.33),new Student("121","F","q",1.2)));
+        assertThat(studentService.findStudentByPartOfId("12"),hasItems(new Student("123","A","temp",2.33)
+                ,new Student("121","F","q",1.2)));
 
     }
 
-    @Test(expected = StudentServiceImpl.NoDataException.class)
+    @Test(expected = NoDataException.class)
     public void testNoDataException(){
+        List<Student> mockStudents = new ArrayList<>();
+        when(studentDao.findAll()).thenReturn(mockStudents);
+        assertThat(studentService.findStudentById("55"),nullValue());
+    }
+
+    @Test(expected = NoDataException.class)
+    public void testOutputException(){
         List<Student> mockStudents = new ArrayList<>();
         mockStudents.add(new Student("123","A","temp",2.33));
         when(studentDao.findAll()).thenReturn(mockStudents);
         assertThat(studentService.findStudentById("55"),nullValue());
     }
 
+    @Test(expected = ArithmeticException.class)
+    public void testArithmeticException(){
+        List<Student> mockStudents = new ArrayList<>();
+        when(studentDao.findAll()).thenReturn(mockStudents);
+        assertThat(studentService.getAverageGpa(),nullValue());
+    }
 
 }
