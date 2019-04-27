@@ -28,9 +28,9 @@ docker-build:
   stage: package
   script:
 
-  - docker build --build-arg JAVA_FILE=target/backend.jar -t xingyuankang/lab-backend .
+  - docker build --build-arg JAVA_FILE=target/backend.jar -t xingyuankang/auto-lab-backend .
   - docker login -u xingyuankang -p XzBh6mqmM5rtxXF
-  - docker push xingyuankang/lab-backend
+  - docker push xingyuankang/auto-lab-backend
 
 docker-compose:
   stage: deploy
