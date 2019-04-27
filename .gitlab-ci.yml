@@ -1,0 +1,46 @@
+image: docker:latest
+services:
+- docker:dind
+
+stages:
+- build
+- package
+- deploy
+variables:
+  DOCKER_DRIVER: overlay
+cache:
+  paths:
+  - .m2/repository
+
+maven-build:
+  image: maven:3-jdk-8
+  stage: build
+  variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+  script:
+  - mvn clean install -B -Pdeploy
+  artifacts:
+    paths:
+    - target/*.jar
+
+docker-build:
+  stage: package
+  script:
+
+  - docker build --build-arg JAVA_FILE=target/backend.jar -t xingyuankang/auto-lab-backend .
+  - docker login -u xingyuankang -p XzBh6mqmM5rtxXF
+  - docker push xingyuankang/auto-lab-backend
+
+docker-compose:
+  stage: deploy
+  before_script:
+  - apk add --no-cache py-pip    # < --
+  - pip install docker-compose~=1.23.0    # < --
+  - apk add --update curl && rm -rf /var/cache/apk/*
+
+  script:
+
+  - docker-compose -H tcp://35.153.73.48:2379 pull
+  - docker-compose -H tcp://35.153.73.48:2379 down
+  - docker-compose -H tcp://35.153.73.48:2379 up -d

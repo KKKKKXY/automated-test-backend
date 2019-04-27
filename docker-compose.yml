@@ -3,9 +3,9 @@ services:
   backend:
     image: dto80/se234-lab11:latest
     ports:
-      - "8082:8080"
+      - "8083:8080"
   frontend:
-    image: xingyuankang/se234-lab11-client:latest
+    image: xingyuankang/auto-lab-frontend:latest
     ports:
-      - "8081:80"
+      - "8084:80"
 
