@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   backend:
-    image: xingyuankang/auto-lab-backend:latest
+    image: ato80/234-lab11:latest
     ports:
       - "8083:8080"
   frontend:
