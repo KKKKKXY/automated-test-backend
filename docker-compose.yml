@@ -4,6 +4,10 @@ services:
     image: dto80/234-lab11:latest
     ports:
       - "8086:8080"
+    volumes:
+      - type: bind
+        source: /home/data
+        target: /data
   frontend:
     image: xingyuankang/auto-lab-frontend:latest
     ports:
