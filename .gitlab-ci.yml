@@ -41,6 +41,6 @@ docker-compose:
 
   script:
 
-  - docker-compose -H tcp://35.153.73.48:2379 pull
-  - docker-compose -H tcp://35.153.73.48:2379 down
-  - docker-compose -H tcp://35.153.73.48:2379 up -d
+  - docker-compose -H tcp://3.90.223.225:2379 pull
+  - docker-compose -H tcp://3.90.223.225:2379 down
+  - docker-compose -H tcp://3.90.223.225:2379 up -d
